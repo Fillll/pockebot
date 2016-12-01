@@ -7,6 +7,7 @@ import re
 import urllib.request as req
 from os.path import join
 from pprint import pprint
+import time
 
 import yaml
 import requests
@@ -32,6 +33,9 @@ class PocketBot(telepot.aio.helper.ChatHandler):
         self.is_main = is_main
         self.messages = list()
         self.pocket_client = pocket.PocketbotPocketSlave(config['pocket_token'])
+        # For forwarding /feedback messages
+        self.stuff_bot = telepot.Bot(config['support_bot_token'])
+        self.dev_group_chat = config['developers_group']
         # User state
         self.lang = 'en'
         self.tags_promt = True
@@ -262,6 +266,9 @@ class PocketBot(telepot.aio.helper.ChatHandler):
 
     def store_feedback(self, message):
         self.mongo.save_feedback(message=message)
+        self.stuff_bot.sendMessage(self.dev_group_chat, '#feedback_from_pockebot is below:')
+        time.sleep(1.23456)
+        self.stuff_bot.sendMessage(self.dev_group_chat, message)
 
     def store_contacts(self, message):
         if self.visit_time == 0:

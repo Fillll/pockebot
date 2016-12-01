@@ -39,4 +39,4 @@ There are several options:
 1. Improve this crappy code (was written not for public,
 but now it is hard to do it by one person).
 2. Make pull request to this repo.
-3. Join [Pockebot Developers Group](https://telegram.me/joinchat/ABy35Ap7lW6ENB4CMVqAqQ).
+3. Join [Pockebot Developers Group](https://telegram.me/joinchat/ABy35EDmTxFCwbUO1rQGpw).
