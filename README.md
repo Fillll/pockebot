@@ -1,5 +1,4 @@
-Pockebot!
-=========
+# [@pockebot](https://telegram.me/pockebot)
 
 
 Simple bot that save articles direct from your favorite
@@ -7,32 +6,37 @@ messanging app to Pocket. Additional this bot has some
 extra features.
 
 
-What I need?
-------------
 
-* python3
-* mongodb
-* pymongo
-* [pocket](https://github.com/tapanpandita/pocket)
-* [telepot](https://github.com/nickoala/telepot)
+## How to use
+
+1. Add [@pockebot](https://telegram.me/pockebot) to your
+telegram.
+2. Forward any message with link to this bot.
+3. Really simple?
 
 
-To Do
------
 
-1. ~~Make a web page (with ya.metrika) for redirects.~~
-2. RSS support.
-3. ~~Tags support.~~
-4. Make feature list in this `README.md`.
-5. ~~Create `/help` message.~~
-6. ~~Create `/feedback` message.~~
-7. Online `/feedback` answer system.
-8. Create `/logout` command.
-9. Store urls before autherization. Make own pocket!
-10. Group chat capability (_@ilan_katin_ request). WTF?!
-11. Github public.
-12. ~~Adding `/help` and `/news` commands should be in main func, not in pairwaise.~~
-13. ~~Add like `30 mins` tags.~~
-14. Make interactive menu (check what is now selected).
-15. Make menu on own languge.
-16. Make smart tag promt (sort tag promt based on tag relavanve).
+## Feature List
+
+- You can add any tags to the last article: just send
+`#tag` to the bot. Or send `#tag` with the article link.
+- Reading timing tags like `~timing: 5-10 min`.
+- ... a little more ...
+
+
+
+## Support
+
+In case of any questions join
+[Pockebot Support Group](https://telegram.me/pocket_bot_support_en).
+
+
+
+## How to improve
+
+There are several options:
+
+1. Improve this crappy code (was written not for public,
+but now it is hard to do it by one person).
+2. Make pull request to this repo.
+3. Join [Pockebot Developers Group](https://telegram.me/joinchat/ABy35Ap7lW6ENB4CMVqAqQ).
