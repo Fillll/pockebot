@@ -1,0 +1,7 @@
+requests
+gtts
+pocket
+pymongo
+telepot==8.3
+newspaper3k
+pyyaml
