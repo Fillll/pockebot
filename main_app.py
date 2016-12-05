@@ -390,7 +390,7 @@ class PocketBot(telepot.aio.helper.ChatHandler):
             elif words[1] == 'ru':
                 self.lang = 'ru'
                 to_send_msg = self.say('ok')
-                
+                self._cancel_last()
             elif words[1] == 'it':
                 self.lang = 'it'
                 to_send_msg = self.say('ok')
