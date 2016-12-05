@@ -8,6 +8,7 @@ import urllib.request as req
 from os.path import join
 from pprint import pprint
 import time
+import logging
 
 import yaml
 import requests
@@ -21,6 +22,10 @@ import config.translation as tr
 import db_actions as db
 import pocket_actions as pocket
 from audio_actions import make_an_audio
+from sentry import report_error
+
+
+logger = logging.getLogger(__name__)
 
 
 class PocketBot(telepot.aio.helper.ChatHandler):
@@ -72,7 +77,7 @@ class PocketBot(telepot.aio.helper.ChatHandler):
 
     def __debug_print(self, what):
         if not self.is_main:
-            pprint(what)
+            logger.warning(what)
 
     def get_state(self):
         state = self.mongo.get_state()
@@ -338,28 +343,34 @@ class PocketBot(telepot.aio.helper.ChatHandler):
                 if words[2] == 'on':
                     self.tags_promt = True
                     to_send_msg = self.say('ok')
+                    self._cancel_last()
                 elif words[2] == 'off':
                     self.tags_promt = False
                     to_send_msg = self.say('ok')
+                    self._cancel_last()
             elif words[1] == 'pockebot':
                 if words[2] == 'on':
                     self.set_pockebot_tag = True
                     to_send_msg = self.say('ok')
+                    self._cancel_last()
                 elif words[2] == 'off':
                     self.set_pockebot_tag = False
                     to_send_msg = self.say('ok')
+                    self._cancel_last()
             elif words[1] == 'reading':
                 if words[2] == 'on':
                     self.reading_time_tag = True
                     to_send_msg = self.say('ok')
+                    self._cancel_last()
                 elif words[2] == 'off':
                     self.reading_time_tag = False
                     to_send_msg = self.say('ok')
+                    self._cancel_last()
             else:
                 to_send_msg = self.say('use_keyboard')
         elif words[0] == '/cancel':
-            self._cancel_last()
             to_send_msg = self.say('ok')
+            self._cancel_last()
         # LANG
         elif words[0] == '/lang':
             if len(words) == 1:
@@ -375,17 +386,22 @@ class PocketBot(telepot.aio.helper.ChatHandler):
             elif words[1] == 'en':
                 self.lang = 'en'
                 to_send_msg = self.say('ok')
+                self._cancel_last()
             elif words[1] == 'ru':
                 self.lang = 'ru'
                 to_send_msg = self.say('ok')
+                
             elif words[1] == 'it':
                 self.lang = 'it'
                 to_send_msg = self.say('ok')
+                self._cancel_last()
             elif words[1] == 'pt':
                 self.lang = 'pt'
                 to_send_msg = self.say('ok')
+                self._cancel_last()
             else:
                 to_send_msg = self.say('new_lang')
+                self._cancel_last()
         # AUDIO
         elif words[0] == '/audio':
             if len(words) == 1:
@@ -401,9 +417,11 @@ class PocketBot(telepot.aio.helper.ChatHandler):
             elif words[1] == 'on':
                 self.audio = True
                 to_send_msg = self.say('ok')
+                self._cancel_last()
             elif words[1] == 'off':
                 self.audio = False
                 to_send_msg = self.say('ok')
+                self._cancel_last()
         return to_send_msg, keyboard
 
     def get_urls_and_tags(self, msg):
@@ -459,10 +477,11 @@ class PocketBot(telepot.aio.helper.ChatHandler):
         return False
 
     async def _cancel_last(self):
-        if self._editor:
+        if self._editor and self.waiting_for_menu_action:
             await self._editor.editMessageReplyMarkup(reply_markup=None)
             self._editor = None
             self._edit_msg_ident = None
+            self.waiting_for_menu_action = False
 
     async def on_callback_query(self, msg):
         query_id, self.request_chat_id, query_data = telepot.glance(msg, flavor='callback_query')
@@ -532,10 +551,10 @@ class PocketBot(telepot.aio.helper.ChatHandler):
             self._editor = telepot.aio.helper.Editor(self.bot, sent)
             self._edit_msg_ident = telepot.message_identifier(sent)
 
-
+@report_error
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', default='conf/prod.yml')
+    parser.add_argument('--config', default=join('config', 'prod.yml'))
     args = parser.parse_args()
     with open(args.config) as config_file:
         config = yaml.load(config_file.read())

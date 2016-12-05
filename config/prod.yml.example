@@ -1,0 +1,15 @@
+mongo:
+  use_auth: false
+  user: "user_name"
+  db: "db_name"
+  host: "host_name"
+  port: "27017"
+
+telegram_token: "pockebot_token"
+pocket_token: "pocket_token"
+
+# remove this parameter
+pockebot_is_main: true
+
+support_bot_token: "support_bot_token"
+developers_group: "Dev chat id"

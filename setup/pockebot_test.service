@@ -2,8 +2,8 @@
 Description=PockeBot_test
 
 [Service]
-WorkingDirectory=/home/olive/rep/pockebot
-ExecStart=/home/olive/rep/pockebot/env/bin/python main_app.py --config config/test_nodebug.yml
+WorkingDirectory=/home/olive/dev/pockebot
+ExecStart=/home/olive/dev/pockebot/env/bin/python main_app.py --config config/test.yml
 Restart=always
 
 [Install]
