@@ -40,3 +40,10 @@ There are several options:
 but now it is hard to do it by one person).
 2. Make pull request to this repo.
 3. Join [Pockebot Developers Group](https://telegram.me/joinchat/ABy35EDmTxFCwbUO1rQGpw).
+
+
+
+## If you appreciate it
+
+[![](https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5YFAVVZXRMM2C)
+
