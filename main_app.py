@@ -380,6 +380,7 @@ class PocketBot(telepot.aio.helper.ChatHandler):
                      InlineKeyboardButton(text='Russian', callback_data='/lang ru')],
                     [InlineKeyboardButton(text='Italian', callback_data='/lang it'),
                      InlineKeyboardButton(text='Portuguese', callback_data='/lang pt')],
+                    [InlineKeyboardButton(text='Arabic', callback_data='/lang ar')],
                     [InlineKeyboardButton(text='Other', callback_data='/lang other')],
                     [InlineKeyboardButton(text='Cancel', callback_data='/cancel')]
                 ])
@@ -397,6 +398,10 @@ class PocketBot(telepot.aio.helper.ChatHandler):
                 self._cancel_last()
             elif words[1] == 'pt':
                 self.lang = 'pt'
+                to_send_msg = self.say('ok')
+                self._cancel_last()
+            elif words[1] == 'ar':
+                self.lang = 'ar'
                 to_send_msg = self.say('ok')
                 self._cancel_last()
             else:
